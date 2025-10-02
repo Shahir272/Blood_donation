@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New User - Blood Donation System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1NfV0E.img?w=3816&h=2566&m=4&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .connection-status {
+            justify-content: center;
+            background: #f9fafb;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            color: white;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(100, 116, 139, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="header">
+                <h1>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="m22 2-5 10-5-5-4 8"></path>
+                    </svg>
+                    Add New User
+                </h1>
+                <p>Blood Donation System - User Registration</p>
+            </div>
+
+            <div class="connection-status">
+                <div class="status-dot disconnected" id="statusDot"></div>
+                <span id="statusText">Connecting to database...</span>
+            </div>
+
+            <div id="statusMessage"></div>
+
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label for="username">Username <span class="required">*</span></label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginner_type">User Type <span class="required">*</span></label>
+                    <select id="loginner_type" name="loginner_type" class="form-control form-select" required>
+                        <option value="">Select user type</option>
+                        <option value="admin">Admin</option>
+                        <option value="donor">Donor</option>
+                        <option value="receiver">Receiver</option>
+                        <option value="institution">Institution</option>
+                    </select>
+                </div>
+
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Adding user...</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    Add User
+                </button>
+                
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                    Reset Form
+                </button>
+
+                <a href="main.html" class="btn btn-back">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5"></path>
+                        <path d="M12 5l-7 7 7 7"></path>
+                    </svg>
+                    GO BACK
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/dbService.js"></script>
+    <script src="js/uiUtils.js"></script>
+    <script src="js/addUser.js"></script>
+</body>
+</html>

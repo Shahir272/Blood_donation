@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User - Blood Donation System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #182848 0%, #4b6cb7 100%);
+            color: white;
+        }
+
+        .header h1 {
+            color: white;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .table-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: white;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-wrapper {
+            overflow-y: auto;
+            flex-grow: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        thead {
+            background: rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .delete-card {
+            background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .delete-card h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+        }
+
+        .delete-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .delete-form input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .delete-form button {
+            width: 100%;
+            padding: 15px;
+            background: #212529;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .delete-form button:hover {
+            background: #000000;
+            transform: translateY(-2px);
+        }
+
+        .delete-form button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message-box {
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .message-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .go-back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .go-back-btn:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DELETE USER ACCOUNT</h1>
+        </div>
+
+        <div class="content-grid">
+            <div class="table-card users-list">
+                <div class="table-header">
+                    <h2 class="table-title">Registered Users (Username & Type)</h2>
+                    <span class="record-count" id="usersCount">0 records</span>
+                </div>
+                <div class="table-wrapper">
+                    <div id="usersTableContainer">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Loading user data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="delete-card">
+                <div>
+                    <h2>Data Deletion Tool</h2>
+                    <form id="deleteForm" class="delete-form">
+                        <label for="usernameToDelete">Enter Username to Delete</label>
+                        <input type="text" id="usernameToDelete" placeholder="e.g., admin_user" required>
+                        
+                        <button type="submit" id="deleteButton">PERMANENTLY DELETE RECORD</button>
+                    </form>
+                    <div id="messageBox" class="message-box"></div>
+                </div>
+                
+                <a href="main.html" class="go-back-btn">Go Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/dbService.js"></script>
+    <script src="js/uiUtils.js"></script>
+    <script src="js/deleteUser.js"></script>
+</body>
+</html>
